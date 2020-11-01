@@ -1,19 +1,13 @@
 package com.tbagroup;
 
-import java.util.Properties;
-
 import com.tbagroup.domain.Configuration;
 import com.tbagroup.service.TrackService;
 import com.tbagroup.service.impl.TrackServiceImpl;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 public class Application {
     public static final Logger LOGGER = LoggerFactory.getLogger(Application.class);

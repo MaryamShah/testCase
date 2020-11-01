@@ -14,30 +14,35 @@ public class MoveServiceImpl implements MoveService {
         this.track = track;
     }
 
+    /**
+     * pick one tasks from the head of crane's tasks queue and try to do it
+     */
     @Override
     public synchronized void move(CraneDto crane) {
         TaskDto peek = crane.getTasks().peek();
         if (peek != null) {
             handler(peek, crane);
             crane.getTasks().poll();
-            Application.LOGGER.info("task {} is done", peek.getId());
+            Application.LOGGER.info("task {} is successfully done", peek.getId());
         }
     }
 
+    /**
+     * if there is any impediment in the crane movement path , first handle it, then do yourself
+     *
+     */
     private void handler(TaskDto peek, CraneDto crane) {
         CraneDto other = track.getOtherCrane(crane);
         if (other != null) {
-            TaskDto motion = null;
+            TaskDto movement = null;
             int position = peek.getDestination();
-            if ((peek.getDestination() >= other.getPosition()
-                    && crane.getParkPosition() == 0)) {
+            if ((peek.getDestination() >= other.getPosition() && crane.getParkPosition() == 0)) {
                 position++;
                 if (position == other.getParkPosition() - 1) {
                     position = other.getParkPosition();
                 }
 
-            } else if (peek.getDestination() <= other.getPosition()
-                    && crane.getParkPosition() != 0) {
+            } else if (peek.getDestination() <= other.getPosition() && crane.getParkPosition() != 0) {
                 position--;
                 if (position == other.getParkPosition() + 1) {
                     position = other.getParkPosition();
@@ -46,8 +51,8 @@ public class MoveServiceImpl implements MoveService {
             if (other.isInPark()) {
                 position = other.getParkPosition();
             }
-            motion = new TaskDto(other.getId(), "Crane-Move", other.getPosition(), position);
-            doIt(motion, other);
+            movement = new TaskDto(other.getId(), "Crane-Move", other.getPosition(), position);
+            doIt(movement, other);
         }
         doIt(peek, crane);
     }
@@ -61,8 +66,7 @@ public class MoveServiceImpl implements MoveService {
                     , poll.getId(), poll.getType(), poll.getCurrentPosition(), poll.getDestination());
             crane.setPosition(poll.getDestination());
         }
-        Application.LOGGER.info("current crane {} position [{}-{}] "
-                , crane.getId(), crane.getParkPosition(), crane.getPosition());
+        Application.LOGGER.info("current crane {} position is :{} ", crane.getId(), crane.getPosition());
     }
 
 }

@@ -34,6 +34,9 @@ public class CraneServiceImpl implements CraneService {
         this.moveService = moveService;
     }
 
+    /**
+     * Creates a thread pool by fixed number of threads and start to pick one by one movement task to do
+     */
     @Override
     public void startWork() {
         setupCranes();
@@ -49,6 +52,10 @@ public class CraneServiceImpl implements CraneService {
             executor.shutdownNow();
     }
 
+    /**
+     * set up crane(s) as much as track craneCount says,
+     * first put them in the parking, then produce tasks randomly
+     */
     private void setupCranes() {
         int park = track.getLeftParking();
         for (int i = 0; i < track.getCraneCount(); i++) {
@@ -56,7 +63,7 @@ public class CraneServiceImpl implements CraneService {
             crane.addTasks(new PriorityBlockingQueue<>());
             track.addCrane(crane);
             taskService.produceTask(crane);
-            Application.LOGGER.info("crane {} initialize in parking {}..."
+            Application.LOGGER.info("crane {} initialized in parking {}..."
                     , crane.getId(), crane.getPosition());
             park = track.getRightParking();
         }

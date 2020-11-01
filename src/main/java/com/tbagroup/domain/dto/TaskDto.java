@@ -11,10 +11,10 @@ public class TaskDto implements Comparable<TaskDto> {
     private Integer destination;
     private Integer priority;
 
-    public TaskDto(Integer startPosition, Integer destination) {
+    public TaskDto(Integer currentPosition, Integer destination) {
         this.id = UUID.randomUUID();
-        this.type = "Crane-Move";
-        this.currentPosition = startPosition;
+        this.type = "Crane-Movement";
+        this.currentPosition = currentPosition;
         this.destination = destination;
         this.priority = 0;
     }

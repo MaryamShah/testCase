@@ -14,7 +14,7 @@ public class TrackServiceImpl implements TrackService {
     public TrackServiceImpl(Configuration configuration) {
         this.track = new TrackDto(configuration.getName(), configuration.getLength(), configuration.getCraneCount());
         this.craneService = new CraneServiceImpl(this.track);
-        Application.LOGGER.info("Track {} initialize...",track.getName());
+        Application.LOGGER.info("Track {} initialized...",track.getName());
     }
 
 

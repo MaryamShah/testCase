@@ -23,8 +23,10 @@ public class TaskServiceImpl implements TaskService {
         thread.start();
     }
 
-    private static TaskDto createDummyTask(Integer parkPosition
-            , Integer maxLength) {
+    /**
+     * try to generate randomly movement tasks between crane park position and entered maxLength
+     */
+    private static TaskDto createDummyTask(Integer parkPosition, Integer maxLength) {
         TaskDto taskDto = null;
         Random random = new Random();
         int last = random.ints(1, maxLength).findFirst().getAsInt() + 1;
@@ -45,6 +47,9 @@ public class TaskServiceImpl implements TaskService {
             this.crane = crane;
         }
 
+        /**
+         * generate a random task for it's related crane each 6 milliseconds by calling createDummyTask method
+         */
         @Override
         public void run() {
             while (true) {
