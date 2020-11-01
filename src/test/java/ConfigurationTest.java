@@ -1,4 +1,5 @@
 import com.tbagroup.domain.Configuration;
+import com.tbagroup.domain.TrackValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,22 +13,22 @@ public class ConfigurationTest {
         Assert.assertEquals(conf, new Configuration("track", 3, 1));
     }
 
-    @Test
+    @Test(expected = TrackValidationException.class)
     public void createNewConfiguration_byLessThanZeroLength_ThrowsTrackValidationException() {
         new AssertionError(new Configuration("track", -1, 1));
     }
 
-    @Test
+    @Test(expected = TrackValidationException.class)
     public void createNewConfiguration_byZeroLength_ThrowsTrackValidationException() {
         new AssertionError(new Configuration("track", 0, 1));
     }
 
-    @Test
+    @Test(expected = TrackValidationException.class)
     public void createNewConfiguration_byLessThan1Crane_ThrowsTrackValidationException() {
         new AssertionError(new Configuration("track", 10, 0));
     }
 
-    @Test
+    @Test(expected = TrackValidationException.class)
     public void createNewConfiguration_byMoreThan2Crane_ThrowsTrackValidationException() {
         new AssertionError(new Configuration("track", 10, 3));
     }
