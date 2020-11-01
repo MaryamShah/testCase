@@ -54,7 +54,7 @@ public class CraneServiceImpl implements CraneService {
 
     /**
      * set up crane(s) as much as track craneCount says,
-     * first put them in the parking, then produce tasks randomly
+     * first put them in the parking, then produce tasks randomly to move
      */
     private void setupCranes() {
         int park = track.getLeftParking();

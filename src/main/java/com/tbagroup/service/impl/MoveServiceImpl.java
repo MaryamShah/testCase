@@ -28,7 +28,7 @@ public class MoveServiceImpl implements MoveService {
     }
 
     /**
-     * if there is any impediment in the crane movement path , first handle it, then do yourself
+     * if there is any impediment in the crane movement path , first handle it, then do itself
      *
      */
     private void handler(TaskDto peek, CraneDto crane) {

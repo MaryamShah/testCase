@@ -5,19 +5,18 @@ import com.google.testing.threadtester.ThreadedSecondary;
 import com.tbagroup.domain.dto.CraneDto;
 import com.tbagroup.domain.dto.TaskDto;
 import com.tbagroup.domain.dto.TrackDto;
-import com.tbagroup.service.MoveService;
 import com.tbagroup.service.impl.MoveServiceImpl;
 import org.junit.Test;
 
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class MoveServiceTest {
-    private MoveService moveService;
+    private MoveServiceImpl moveService;
 
 
     @ThreadedBefore
     public void before() {
-        //fillMoveService();
+        fillMoveService();
     }
 
     @ThreadedMain
@@ -32,7 +31,6 @@ public class MoveServiceTest {
 
     @Test()
     public void move_Scenario() {
-        this.fillMoveService();
         new AnnotatedTestRunner().runTests(this.getClass(), MoveServiceImpl.class);
     }
 
